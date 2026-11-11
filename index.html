@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prilabo – פורטל הזמנות סגור למותגי פרייבט לייבל</title>
+<meta name="description" content="Prilabo: פורטל הזמנות סגור למותגי קוסמטיקה במיתוג פרטי שמוכרים לקליניקות. שאלון אבחון, סיכום AI, אישור בלחיצה, והקליניקה מזמינה בעצמה עם המחירים שלה והלוגו שלה.">
+<meta property="og:title" content="Prilabo – פורטל הזמנות סגור למותגי פרייבט לייבל">
+<meta property="og:description" content="Prilabo: פורטל הזמנות סגור למותגי קוסמטיקה במיתוג פרטי שמוכרים לקליניקות. שאלון אבחון, סיכום AI, אישור בלחיצה, והקליניקה מזמינה בעצמה עם המחירים שלה והלוגו שלה.">
+<meta property="og:image" content="https://lirandahan7703-oss.github.io/prilabo/prilabo-share.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lirandahan7703-oss.github.io/prilabo/">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1200">
+<meta property="og:image:type" content="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --plum: #24132A;
+    --plum-2: #2E1B35;
+    --plum-line: #3E2946;
+    --gold: #E8C9A0;
+    --gold-2: #F1DCBF;
+    --paper: #FAF8F5;
+    --white: #FFFFFF;
+    --ink: #1F1A22;
+    --ink-2: #645A68;
+    --line: #E7E2E6;
+    --soft: #F3ECF2;
+    --ok: #2F7A4F;
+    --wait: #94591A;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-padding-bottom: 6rem; scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Heebo", "Segoe UI", "Arial Hebrew", Arial, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.65;
+    direction: rtl;
+    text-align: right;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .wrap { width: min(100% - 2.5rem, 74rem); margin-inline: auto; }
+  .narrow { width: min(100% - 2.5rem, 48rem); margin-inline: auto; }
+  h1, h2, h3 { font-weight: 800; line-height: 1.12; letter-spacing: -0.01em; }
+  h2 { font-size: clamp(1.9rem, 3.8vw, 2.7rem); max-width: 24ch; margin-bottom: 0.75rem; }
+  h3 { font-size: 1.2rem; font-weight: 700; }
+  .sub { color: var(--ink-2); font-size: 1.15rem; max-width: 50ch; margin-bottom: 2.5rem; }
+  .dark { background: var(--plum); color: #fff; }
+  .dark .sub { color: #CDBFCB; }
+  .dark h2 { color: #fff; }
+
+  /* Buttons */
+  .cta {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--gold); color: var(--plum);
+    text-decoration: none; font-weight: 800; font-size: 1.1rem;
+    padding: 1rem 2.1rem; border-radius: 999px; border: 0; cursor: pointer; font-family: inherit;
+    transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    box-shadow: 0 10px 30px -14px rgba(232, 201, 160, 0.9);
+  }
+  .cta:hover { background: var(--gold-2); transform: translateY(-2px); box-shadow: 0 16px 34px -14px rgba(232, 201, 160, 1); }
+  .cta:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .cta svg { width: 1.1rem; height: 1.1rem; transition: transform 160ms ease; }
+  .cta:hover svg { transform: translateX(-4px); }
+  .ghost {
+    display: inline-block; border: 1px solid rgba(255,255,255,0.55); color: #fff; text-decoration: none;
+    padding: 0.55rem 1.2rem; border-radius: 999px; font-size: 0.95rem; font-weight: 500;
+    transition: background 160ms ease, border-color 160ms ease;
+  }
+  .ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+  .link { color: inherit; text-decoration: underline; text-underline-offset: 0.35rem; text-decoration-thickness: 1.5px; margin-inline-start: 1.5rem; font-weight: 500; }
+  .note { display: block; margin-top: 0.9rem; font-size: 0.95rem; color: var(--ink-2); }
+  .dark .note { color: #CDBFCB; }
+  @media (max-width: 560px) { .cta { width: 100%; justify-content: center; } .link { display: inline-block; margin: 1rem 0 0; } }
+
+  /* Top bar */
+  .top { padding-block: 1.3rem; position: relative; z-index: 2; }
+  .top .wrap { display: flex; justify-content: space-between; align-items: center; }
+  .brand { font-weight: 800; font-size: 1.5rem; color: #FAF8F5; text-decoration: none; }
+  .brand .dotless { position: relative; }
+  .brand .dotless::after { content: ""; position: absolute; left: 50%; top: 0.18em; width: 0.24em; height: 0.24em; border-radius: 50%; background: #E8C9A0; transform: translateX(-50%); }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; padding-block: 3rem 6rem; }
+  .hero::before {
+    content: ""; position: absolute; inset: auto -20% -40% auto; width: 60vw; height: 60vw; max-width: 760px; max-height: 760px;
+    border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,160,0.16), rgba(232,201,160,0));
+    pointer-events: none;
+  }
+  .hero .wrap { display: grid; gap: 3.5rem; align-items: center; position: relative; }
+  @media (min-width: 960px) { .hero .wrap { grid-template-columns: 1.15fr 0.85fr; gap: 4rem; } }
+  h1 { font-size: clamp(2.2rem, 5vw, 3.7rem); color: #fff; margin-bottom: 1.5rem; }
+  h1 span { white-space: nowrap; }
+  @media (max-width: 420px) { h1 span { white-space: normal; } }
+  h1 em { font-style: normal; color: var(--gold); }
+  .lede { font-size: 1.25rem; color: #D7CBD5; max-width: 40ch; margin-bottom: 2.25rem; }
+  @media (max-width: 560px) and (max-height: 700px) { .hero { padding-top: 1rem; } h1 { margin-bottom: 0.75rem; } .lede { margin-bottom: 1.25rem; } }
+
+  /* Phone mockup */
+  .device { position: relative; width: min(100%, 20rem); margin-inline: auto; }
+  .phone {
+    background: #fff; color: var(--ink); border-radius: 2.2rem; padding: 1.1rem 1rem 1.3rem;
+    border: 7px solid #120A16; box-shadow: 0 50px 90px -40px rgba(0,0,0,0.8);
+    animation: float 7s ease-in-out infinite;
+  }
+  .ph { font-size: 0.78rem; color: var(--ink-2); display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.9rem; }
+  .ph b { color: var(--plum); font-size: 0.9rem; }
+  .logo { display: flex; gap: 0.6rem; align-items: center; background: #F7EFE4; border-radius: 0.7rem; padding: 0.65rem 0.75rem; font-size: 0.78rem; margin-bottom: 0.6rem; }
+  .logo i { width: 2rem; height: 2rem; flex: none; border: 1px dashed #B48A5C; border-radius: 0.35rem; display: grid; place-items: center; font-weight: 800; color: #B48A5C; font-style: normal; background: #fff; }
+  .logo b { display: block; font-size: 0.82rem; }
+  .it { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-top: 1px solid var(--line); font-size: 0.85rem; }
+  .it small { display: block; color: var(--ink-2); font-size: 0.72rem; }
+  .stock { font-size: 0.68rem; color: var(--ok); display: inline-flex; align-items: center; gap: 0.3rem; }
+  .stock::before { content: ""; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--ok); }
+  .stock.wait { color: var(--wait); } .stock.wait::before { background: var(--wait); }
+  .pr { color: var(--ink-2); font-size: 0.7rem; display: inline-flex; align-items: center; gap: 0.3rem; }
+  .pr i { display: inline-block; width: 2.1rem; height: 0.7rem; background: #E5E0E6; border-radius: 0.2rem; filter: blur(2px); }
+  .q { border: 1px solid var(--line); border-radius: 0.4rem; padding: 0.05rem 0.55rem; font-size: 0.82rem; font-weight: 500; min-width: 2rem; text-align: center; }
+  .pbtn { margin-top: 0.9rem; background: var(--plum); color: #fff; text-align: center; border-radius: 999px; padding: 0.65rem; font-weight: 700; font-size: 0.88rem; }
+  .toast {
+    position: absolute; inset-inline-end: -2.4rem; bottom: -0.9rem; width: 14.5rem;
+    background: var(--plum-2); color: #fff; border: 1px solid var(--plum-line);
+    border-radius: 0.8rem; padding: 0.75rem 0.9rem; font-size: 0.8rem; line-height: 1.45;
+    box-shadow: 0 24px 40px -24px rgba(0,0,0,0.8);
+    opacity: 0; transform: translateY(12px);
+    animation: toast 800ms cubic-bezier(.2,.8,.2,1) 1.4s forwards;
+  }
+  .toast b { color: var(--gold); display: block; font-size: 0.85rem; }
+  @media (max-width: 420px) { .toast { inset-inline-end: -0.3rem; bottom: -1rem; width: 12.5rem; } }
+  .cap { margin-top: 2.2rem; font-size: 0.85rem; color: #B9A9B7; text-align: center; }
+
+  /* Reveal animations */
+  .rv { opacity: 0; transform: translateY(22px); transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.8,.2,1); }
+  .rv.in { opacity: 1; transform: none; }
+  .rv.d1 { transition-delay: 120ms; } .rv.d2 { transition-delay: 240ms; } .rv.d3 { transition-delay: 360ms; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes toast { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .rv { opacity: 1; transform: none; transition: none; }
+    .phone { animation: none; } .toast { animation: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* Sections */
+  section { padding-block: 5.5rem; }
+
+  .pains { display: grid; gap: 2rem; }
+  @media (min-width: 800px) { .pains { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; } }
+  .pain { background: var(--white); border: 1px solid var(--line); border-radius: 1rem; padding: 1.75rem; }
+  .pain .n { font-weight: 800; color: var(--plum); font-size: 1.7rem; line-height: 1; margin-bottom: 0.75rem; }
+  .pain p { color: var(--ink-2); }
+
+  /* Timeline */
+  .tl { position: relative; list-style: none; counter-reset: s; display: grid; gap: 2.5rem; }
+  @media (min-width: 800px) { .tl { grid-template-columns: repeat(3, 1fr); gap: 3rem; } }
+  .tl::before { content: ""; position: absolute; inset-inline: 0; top: 0.7rem; height: 2px; background: var(--line); }
+  .tl::after { content: ""; position: absolute; inset-inline-start: auto; inset-inline-end: 0; top: 0.7rem; height: 2px; width: 0; background: var(--gold); transition: width 1600ms cubic-bezier(.2,.8,.2,1); }
+  .tl.in::after { width: 100%; }
+  .tl li { counter-increment: s; position: relative; padding-top: 2.4rem; }
+  .tl li::before {
+    content: ""; position: absolute; top: 0; inset-inline-end: 0; width: 1.5rem; height: 1.5rem; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--line); transition: border-color 400ms ease, background 400ms ease;
+  }
+  .tl.in li::before { border-color: var(--gold); background: var(--gold); }
+  .tl.in li:nth-child(2)::before { transition-delay: 600ms; } .tl.in li:nth-child(3)::before { transition-delay: 1200ms; }
+  .tl b { display: block; font-size: 1.25rem; margin-bottom: 0.3rem; }
+  .tl b::before { content: counter(s) ". "; color: var(--plum); }
+  .tl span { color: var(--ink-2); }
+  @media (max-width: 799px) { .tl::before, .tl::after { display: none; } .tl li { padding-top: 0; padding-inline-end: 2.5rem; } .tl li::before { top: 0.35rem; } }
+
+  /* Manager view */
+  .two { display: grid; gap: 3rem; align-items: center; }
+  @media (min-width: 960px) { .two { grid-template-columns: 1fr 1.2fr; gap: 4rem; } }
+  .browser { background: var(--white); border: 1px solid var(--line); border-radius: 1rem; box-shadow: 0 40px 70px -40px rgba(31,26,34,0.35); overflow: hidden; font-size: 0.9rem; }
+  .bbar { display: flex; align-items: center; justify-content: space-between; padding: 0.7rem 1rem; background: #F2EEF2; border-bottom: 1px solid var(--line); }
+  .bbar i { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: #D7CFD6; margin-inline-start: 0.3rem; }
+  .bbar span { background: #fff; border-radius: 999px; padding: 0.15rem 0.9rem; font-size: 0.75rem; color: var(--ink-2); }
+  .bhead { display: flex; justify-content: space-between; align-items: baseline; padding: 1rem 1.25rem 0.5rem; }
+  .bhead b { font-size: 1.05rem; }
+  .bhead small { color: var(--ink-2); }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; padding: 0.5rem 1.25rem 1rem; }
+  .kpi { background: var(--soft); border-radius: 0.6rem; padding: 0.6rem 0.8rem; }
+  .kpi b { display: block; font-size: 1.3rem; color: var(--plum); line-height: 1.1; }
+  .kpi small { color: var(--ink-2); font-size: 0.72rem; }
+  .row { display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; align-items: center; padding: 0.8rem 1.25rem; border-top: 1px solid var(--line); }
+  .row b { display: block; font-weight: 500; }
+  .row small { color: var(--ink-2); }
+  .tag { font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.7rem; border-radius: 999px; white-space: nowrap; }
+  .tag.w { color: var(--wait); background: #FBF0DC; } .tag.ok { color: var(--ok); background: #E6F2EB; }
+  .ai { margin: 0.6rem 1.25rem 1rem; background: var(--soft); border-inline-start: 3px solid var(--gold); border-radius: 0.5rem; padding: 0.75rem 0.9rem; font-size: 0.86rem; line-height: 1.5; }
+  .ai b { color: var(--plum); }
+  .bullets { list-style: none; display: grid; gap: 1rem; }
+  .bullets li { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.75rem; align-items: start; }
+  .bullets li::before { content: ""; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--gold); margin-top: 0.15rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2324132A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E"); background-size: 60%; background-position: center; background-repeat: no-repeat; }
+  .bullets b { display: block; }
+  .bullets span { color: var(--ink-2); }
+
+  /* Reality (dark) */
+  .real { list-style: none; }
+  .real li { display: grid; gap: 0.5rem 2.5rem; padding: 1.75rem 0; border-top: 1px solid var(--plum-line); }
+  @media (min-width: 800px) { .real li { grid-template-columns: 1fr 1.6fr; } }
+  .real li:last-child { border-bottom: 1px solid var(--plum-line); }
+  .real h3 { color: #fff; font-size: 1.45rem; display: flex; align-items: center; gap: 0.75rem; }
+  .real h3::before { content: ""; width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 5px rgba(232,201,160,0.18); flex: none; }
+  .real p { color: #CDBFCB; }
+
+  /* Metrics */
+  .metrics { display: grid; gap: 1.5rem; }
+  @media (min-width: 720px) { .metrics { grid-template-columns: 1fr 1fr; } }
+  .metric { background: var(--white); border: 1px solid var(--line); border-radius: 1rem; padding: 2rem; }
+  .metric .what { color: var(--ink-2); margin-bottom: 0.5rem; font-weight: 500; }
+  .metric .nums { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .metric .was { font-size: 1.4rem; color: var(--ink-2); text-decoration: line-through; text-decoration-color: var(--gold); text-decoration-thickness: 2px; }
+  .metric .now { font-size: 4rem; font-weight: 800; line-height: 1; color: var(--plum); font-variant-numeric: tabular-nums; }
+  .metric .unit { color: var(--ink-2); font-size: 1.1rem; }
+  .metric .how { margin-top: 0.75rem; color: var(--ink-2); font-size: 1rem; }
+  .proof { margin-top: 2rem; display: flex; gap: 1rem; align-items: flex-start; background: var(--soft); border-radius: 1rem; padding: 1.25rem 1.5rem; }
+  .proof::before { content: ""; flex: none; width: 0.35rem; align-self: stretch; border-radius: 999px; background: var(--gold); }
+
+  /* Not */
+  .nots { list-style: none; display: grid; gap: 1.5rem 3rem; }
+  @media (min-width: 720px) { .nots { grid-template-columns: 1fr 1fr; } }
+  .nots li { border-top: 1px solid var(--line); padding-top: 1rem; }
+  .nots b { display: block; }
+  .nots span { color: var(--ink-2); }
+
+  /* Form */
+  .form-sec { padding-block: 5.5rem 6rem; }
+  .form-sec .wrap { display: grid; gap: 3rem; align-items: start; }
+  @media (min-width: 900px) { .form-sec .wrap { grid-template-columns: 1fr 1fr; gap: 5rem; } }
+  .form-sec h2 { color: #fff; }
+  .form-sec .sub { color: #CDBFCB; margin-bottom: 1.5rem; }
+  .quiet { border-inline-start: 2px solid var(--plum-line); padding-inline-start: 1rem; color: #CDBFCB; }
+  .quiet b { color: #fff; }
+  form { display: grid; gap: 1.1rem; }
+  label { display: grid; gap: 0.4rem; font-weight: 700; font-size: 0.98rem; color: #fff; }
+  input {
+    font: inherit; font-weight: 400; padding: 0.9rem 1rem; border: 1px solid var(--plum-line); border-radius: 0.6rem;
+    background: var(--plum-2); color: #fff; width: 100%; transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  input::placeholder { color: #9A8A99; }
+  input:focus-visible { outline: 0; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232,201,160,0.25); }
+  input[dir="ltr"] { direction: ltr; text-align: left; }
+  .err { color: #F3B8A8; font-size: 0.9rem; min-height: 1.3em; }
+  .thanks { display: none; background: var(--plum-2); border: 1px solid var(--plum-line); border-radius: 1rem; padding: 2rem; }
+  .thanks b { display: block; font-size: 1.3rem; color: var(--gold); margin-bottom: 0.4rem; }
+  .thanks p { color: #CDBFCB; }
+  .done form { display: none; } .done .thanks { display: block; animation: toast 500ms ease forwards; }
+  .bio { margin-top: 2.5rem; display: flex; gap: 1rem; align-items: center; }
+  .avatar { width: 3.4rem; height: 3.4rem; border-radius: 50%; background: var(--gold); color: var(--plum); display: grid; place-items: center; font-weight: 800; font-size: 1.1rem; flex: none; letter-spacing: 0.04em; }
+  .bio b { display: block; color: #fff; font-size: 1.05rem; }
+  .bio span { color: #CDBFCB; font-size: 0.95rem; }
+
+  footer { padding-block: 1.75rem; font-size: 0.92rem; color: var(--ink-2); background: var(--paper); border-top: 1px solid var(--line); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  footer { padding-bottom: 6rem; }
+
+  /* Accessibility widget (bottom-left; the Botpress chat button sits bottom-right) */
+  .a11y-fab {
+    position: fixed; left: 1.5rem; bottom: 1.5rem; z-index: 2147483000;
+    width: 3.5rem; height: 3.5rem; border-radius: 50%; border: 2px solid var(--gold);
+    background: var(--plum); color: var(--gold); cursor: pointer; display: grid; place-items: center;
+    box-shadow: 0 10px 24px -10px rgba(0,0,0,0.6);
+  }
+  .a11y-fab svg { width: 1.9rem; height: 1.9rem; }
+  .a11y-fab:focus-visible, .a11y-panel button:focus-visible { outline: 3px solid #fff; outline-offset: 0; box-shadow: 0 0 0 6px var(--plum); }
+  .a11y-panel {
+    position: fixed; left: 1.5rem; bottom: 6rem; z-index: 2147483000; width: min(18rem, calc(100vw - 3rem));
+    background: var(--white); color: var(--ink); border: 1px solid var(--line); border-radius: 1rem;
+    padding: 1rem; box-shadow: 0 30px 60px -30px rgba(31,26,34,0.5); font-size: 1rem; line-height: 1.4;
+    max-height: calc(100vh - 8rem); overflow-y: auto;
+  }
+  .a11y-panel[hidden] { display: none; }
+  .a11y-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
+  .a11y-head h2 { font-size: 1.15rem; margin: 0; max-width: none; color: var(--ink); }
+  .a11y-close { background: none; border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.8rem; font: inherit; font-size: 0.9rem; color: var(--ink); cursor: pointer; }
+  .a11y-hint { font-size: 0.85rem; color: var(--ink-2); margin-bottom: 0.75rem; }
+  .a11y-tools { list-style: none; display: grid; gap: 0.5rem; }
+  .a11y-tools button {
+    width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+    font: inherit; font-weight: 500; text-align: right; color: var(--ink); background: var(--paper);
+    border: 1px solid var(--line); border-radius: 0.6rem; padding: 0.6rem 0.8rem; cursor: pointer;
+  }
+  .a11y-tools button .st { font-size: 0.8rem; font-weight: 700; visibility: hidden; }
+  .a11y-tools button[aria-pressed="true"] { background: var(--plum); color: #fff; border-color: var(--plum); }
+  .a11y-tools button[aria-pressed="true"] .st { visibility: visible; color: var(--gold); }
+  .a11y-tools .a11y-reset { justify-content: center; background: var(--white); font-weight: 700; }
+  .a11y-view[hidden] { display: none; }
+  .a11y-panel h2:focus { outline: 2px solid var(--plum); outline-offset: 2px; }
+  .a11y-linkbtn { background: none; border: 0; padding: 0; font: inherit; font-weight: 500; color: var(--ink); text-decoration: underline; text-underline-offset: 0.25rem; cursor: pointer; }
+  .a11y-to-statement { margin-top: 0.9rem; }
+  .a11y-back { margin-bottom: 0.5rem; }
+  .a11y-statement h3 { font-size: 1rem; margin-top: 1rem; margin-bottom: 0.35rem; }
+  .a11y-statement ul { padding-inline-start: 1.1rem; display: grid; gap: 0.35rem; }
+  .a11y-statement p, .a11y-statement li { font-size: 0.95rem; }
+  .a11y-statement a { color: var(--ink); text-decoration: underline; }
+  .a11y-statement .note { font-size: 0.85rem; }
+
+  /* Tool: larger text */
+  html.a11y-big { font-size: 125%; }
+  /* Tool: high contrast */
+  html.a11y-contrast { --ink: #000; --ink-2: #1F1A22; --line: #6E6474; }
+  html.a11y-contrast .dark .sub, html.a11y-contrast .lede, html.a11y-contrast .cap, html.a11y-contrast .real p,
+  html.a11y-contrast .quiet, html.a11y-contrast .thanks p, html.a11y-contrast .bio span, html.a11y-contrast .dark .note,
+  html.a11y-contrast .form-sec .sub { color: #fff; }
+  html.a11y-contrast input::placeholder { color: #D7CBD5; }
+  /* Tool: stop animations (same declarations as the prefers-reduced-motion block above) */
+  html.a11y-still .rv { opacity: 1; transform: none; transition: none; }
+  html.a11y-still .phone { animation: none; } html.a11y-still .toast { animation: none; opacity: 1; transform: none; }
+  html.a11y-still { scroll-behavior: auto; }
+  /* Tool: highlight links */
+  html.a11y-links a { text-decoration: underline !important; text-decoration-thickness: 2px !important; text-underline-offset: 0.25rem; background: #FFF3B0 !important; color: #1F1A22 !important; outline: 2px solid #1F1A22; outline-offset: 2px; }
+  /* Tool: readable font */
+  html.a11y-font body, html.a11y-font input, html.a11y-font button { font-family: Arial, "Segoe UI", sans-serif !important; letter-spacing: 0.02em; word-spacing: 0.1em; }
+  html.a11y-font body { line-height: 1.8; }
+
+  /* Footer button that opens the accessibility statement in the widget panel */
+  .footer-a11y { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 0.25rem; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="dark">
+  <div class="top">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="Prilabo">Pr<span class="dotless">ı</span>labo</a>
+      <a class="ghost" href="#demo">תיאום הדגמה</a>
+    </div>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div>
+        <h1 class="rv"><span>הקליניקות מזמינות לבד.</span><br><em>אתם רק מאשרים.</em></h1>
+        <p class="lede rv d1">Prilabo הוא פורטל הזמנות סגור למותגי קוסמטיקה במיתוג פרטי. הקליניקה ממלאת שאלון, אתם מקבלים סיכום AI ומאשרים בלחיצה, ומאותו רגע היא מזמינה בעצמה מקטלוג עם המחירים שלה והלוגו שלה.</p>
+        <div class="rv d2">
+          <a class="cta" href="#demo">לתיאום הדגמה <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg></a>
+          <a class="link" href="#how">איך זה עובד</a>
+        </div>
+      </div>
+
+      <div class="rv d1">
+        <div class="device">
+          <div class="phone" role="img" aria-label="הדמיה של הקטלוג כפי שהקליניקה רואה אותו">
+            <div class="ph"><b>הזמנת מוצרי פרייבט לייבל</b><span>קליניקת ניצן</span></div>
+            <div class="logo"><i>N</i><div><b>קובץ לוגו פעיל: קיים במערכת</b>הועלה פעם אחת. מודפס על כל הזמנה.</div></div>
+            <div class="it"><div>סרום <span class="stock">במלאי</span><small>ליין הבהרה ופיגמנטציה</small></div><span class="pr">המחיר שלכם <i></i></span><span class="q">12</span></div>
+            <div class="it"><div>קרם לחות <span class="stock">במלאי</span><small>ליין הבהרה ופיגמנטציה</small></div><span class="pr">המחיר שלכם <i></i></span><span class="q">12</span></div>
+            <div class="it"><div>מסכה <span class="stock wait">חסר זמנית</span><small>ליין טיפוח כללי</small></div><span class="pr">המחיר שלכם <i></i></span><span class="q">0</span></div>
+            <div class="pbtn">שליחת הזמנה</div>
+          </div>
+          <div class="toast" role="presentation"><b>הזמנה חדשה נקלטה</b>קליניקת ניצן, 24 יח׳. קובץ הלוגו מצורף.</div>
+        </div>
+        <p class="cap">הדמיה. השמות, המוצרים והכמויות לדוגמה בלבד. המחירים אישיים ואינם מוצגים.</p>
+      </div>
+    </div>
+  </header>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2 class="rv">כך זה עובד היום ברוב המותגים</h2>
+    <p class="sub rv d1">המכירה עובדת. התפעול שסביבה נשאר ידני, וזה מה שמגביל כמה קליניקות אפשר לשרת.</p>
+    <div class="pains">
+      <div class="pain rv"><div class="n">60 דקות</div><h3>לכל קליניקה חדשה</h3><p>שיחת הסבר טלפונית על החומרים והליינים, ולפעמים גם פגישה ארוכה, עוד לפני שידוע אם הקליניקה מתאימה בכלל.</p></div>
+      <div class="pain rv d1"><div class="n">בכל הזמנה</div><h3>מוכתבת בטלפון</h3><p>פריטים וכמויות נרשמים ביד, קובץ הלוגו מחופש בוואטסאפ או במייל, והכול מוזן מחדש.</p></div>
+      <div class="pain rv d2"><div class="n">שוב ושוב</div><h3>לוגו שלא תקין לדפוס</h3><p>בקשה חוזרת מהקליניקה, המתנה, ועיכוב בהדפסת התוויות ובמשלוח.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how" style="padding-top:0">
+  <div class="wrap">
+    <h2 class="rv">איך זה עובד עם Prilabo</h2>
+    <p class="sub rv d1">שלושה שלבים. השיחה היחידה שנשארת לכם היא שיחת האישור.</p>
+    <ol class="tl rv">
+      <li><b>הקליניקה ממלאת שאלון התאמה</b><span>שם, טלפון, מייל, תחום התמחות, צפי הזמנות ובקשה לפגישת התנסות. פניות כפולות נחסמות אוטומטית.</span></li>
+      <li><b>אתם מקבלים סיכום ומאשרים</b><span>סוכן AI מנתח את השאלון וממליץ על ליין. אתם קוראים את הסיכום, מקיימים שיחת אישור קצרה, ופותחים גישה בלחיצה.</span></li>
+      <li><b>הקליניקה מזמינה בעצמה</b><span>קטלוג סגור עם המחירים שסוכמו איתה, חיווי מלאי, והלוגו שהעלתה פעם אחת. ההזמנה נוחתת אצלכם עם הקובץ המצורף.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap two">
+    <div>
+      <h2 class="rv">צד אחד לקליניקה, צד שני לכם</h2>
+      <p class="sub rv d1">הקליניקה רואה קטלוג נקי עם המחירים שלה. אתם רואים רשימה אחת של מי ביקש, מי אושר ומה הוזמן.</p>
+      <ul class="bullets">
+        <li class="rv"><div><b>סיכום AI בכל פנייה</b><span>פרופיל הקליניקה והמלצת ליין, מוכנים לפני שאתם מרימים טלפון.</span></div></li>
+        <li class="rv d1"><div><b>אישור בלחיצה</b><span>פרטי הכניסה נשלחים לקליניקה במייל. אתם לא מקלידים דבר.</span></div></li>
+        <li class="rv d2"><div><b>כל הזמנה עם סטטוס</b><span>ממתין לגבייה, מוכן לאריזה, באריזה, סופק. גם הקליניקה רואה.</span></div></li>
+      </ul>
+    </div>
+    <div class="browser rv d1" role="img" aria-label="הדמיה של מסך הניהול">
+      <div class="bbar"><div><i></i><i></i><i></i></div><span>prilabo.co.il/admin</span></div>
+      <div class="bhead"><b>בקשות הצטרפות והזמנות</b><small>השבוע</small></div>
+      <div class="kpis"><div class="kpi"><b>3</b><small>ממתינות לאישור</small></div><div class="kpi"><b>11</b><small>קליניקות פעילות</small></div><div class="kpi"><b>7</b><small>הזמנות השבוע</small></div></div>
+      <div class="row"><div><b>קליניקת ניצן, חיפה</b><small>הבהרה ופיגמנטציה. ביקשה פגישת התנסות</small></div><span class="tag w">ממתינה לאישור</span></div>
+      <div class="ai"><b>סיכום AI:</b> הקליניקה מתמקדת בהבהרה ופיגמנטציה ומבקשת להתנסות במוצרים. מתאימה לליין ההבהרה. מומלץ לפתוח בשיחת אישור קצרה.</div>
+      <div class="row"><div><b>סטודיו עור, רמת גן</b><small>הזמנה חדשה, 18 יח׳. לוגו מצורף</small></div><span class="tag ok">מוכן לאריזה</span></div>
+      <div class="row"><div><b>קליניקה בצפון</b><small>אקנה ועור בעייתי</small></div><span class="tag ok">מאושרת</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap">
+    <h2 class="rv">בנוי למציאות של מותג פרייבט לייבל</h2>
+    <p class="sub rv d1">לא פורטל B2B כללי שהותאם. המערכת נבנתה סביב שלושה דברים שרק בתחום הזה קורים.</p>
+    <ul class="real">
+      <li class="rv"><h3>מחיר אחר לכל קליניקה</h3><p>המחיר הסיטונאי נסגר בשיחה ונשאר חסוי. בקטלוג כל קליניקה רואה רק את המחיר שלה, ואף אחת לא רואה של האחרות.</p></li>
+      <li class="rv d1"><h3>לוגו שחייב להיות תקין לדפוס</h3><p>קובץ PDF אחד נבדק בהעלאה, נשמר בכרטיס הקליניקה ומצורף אוטומטית לכל הזמנה. הבקשה החוזרת נעלמת.</p></li>
+      <li class="rv d2"><h3>קטלוג שלא נחשף לציבור</h3><p>כניסה עם שם משתמש, סיסמה וקוד אימות למייל. הקטלוג והמחירים לא מופיעים בשום מקום פתוח.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="narrow">
+    <h2 class="rv">מה זה שווה בזמן</h2>
+    <p class="sub rv d1">שני המדדים שהמערכת נבנתה סביבם.</p>
+    <div class="metrics">
+      <div class="metric rv"><div class="what">קליטת קליניקה חדשה</div><div class="nums"><span class="was">60 דקות</span><span class="now" data-count="5">0</span><span class="unit">דקות</span></div><div class="how">קריאת סיכום ה-AI ושיחת אישור ממוקדת, במקום שיחת הסבר מלאה.</div></div>
+      <div class="metric rv d1"><div class="what">קליטת הזמנה חוזרת</div><div class="nums"><span class="was">5 דקות</span><span class="now" data-count="0">0</span><span class="unit">דקות</span></div><div class="how">ההזמנה והלוגו נקלטים לבד. בלי רישום ידני ובלי חיפוש קבצים.</div></div>
+    </div>
+    <div class="proof rv d2"><p>המערכת נבנתה עבור מותג קוסמטיקה במיתוג פרטי שמוכר לקליניקות ולקוסמטיקאיות, ואלה המדדים שהוגדרו איתו. הדף הזה פותח אותה למותגים נוספים.</p></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="narrow">
+    <h2 class="rv">ומה זה לא עושה</h2>
+    <p class="sub rv d1">כדי שתדעו למה להיכנס, ולא רק למה לקוות.</p>
+    <ul class="nots">
+      <li class="rv"><b>לא מאשר במקומכם</b><span>שום קליניקה לא נכנסת לקטלוג בלי שיחה ואישור שלכם. ה-AI מסכם, הוא לא מחליט.</span></li>
+      <li class="rv d1"><b>לא מתכתב עם הקליניקות</b><span>הסוכן עובד רק מולכם. הקליניקה מקבלת מייל אוטומטי אחד: פרטי הכניסה אחרי האישור.</span></li>
+      <li class="rv d2"><b>לא מחליף את פגישת ההתנסות</b><span>מי שביקשה להכיר את המוצרים לפני, מסומנת בפנייה, והפגישה מתואמת בשיחה.</span></li>
+      <li class="rv d3"><b>לא מציג חנות פתוחה</b><span>אין דף מוצרים ציבורי ואין מחירון. מי שלא אושרה, לא רואה דבר.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="dark form-sec" id="demo">
+  <div class="wrap">
+    <div>
+      <h2 class="rv">רוצים לראות את זה על המותג שלכם?</h2>
+      <p class="sub rv d1">השאירו שם, מייל וטלפון, ונחזור אליכם לתיאום הדגמה של 20 דקות. נעבור יחד על השאלון, על סיכום ה-AI ועל הקטלוג הסגור, עם הליינים שלכם.</p>
+      <p class="quiet rv d2"><b>המערכת פועלת אצל המותג הראשון.</b> אני פותח אותה למותגים נוספים אחד-אחד, כדי להתאים את השאלון, את הליינים ואת תהליך האישור לכל עסק.</p>
+      <div class="bio rv d3">
+        <div class="avatar">LD</div>
+        <div><b>Liran Dahan</b><span>AI Solutions Architect</span></div>
+      </div>
+    </div>
+    <div id="demo-box" class="rv d1">
+      <form id="demo-form" novalidate>
+        <label>שם מלא<input type="text" name="name" autocomplete="name" placeholder="איך לפנות אליכם" required></label>
+        <label>כתובת מייל<input type="email" name="email" autocomplete="email" dir="ltr" placeholder="you@example.com" required></label>
+        <label>טלפון<input type="tel" name="phone" autocomplete="tel" dir="ltr" placeholder="050-0000000" required></label>
+        <div class="err" id="err" aria-live="polite"></div>
+        <div>
+          <button class="cta" type="submit">לתיאום הדגמה</button>
+          <span class="note">הפרטים ישמשו רק ליצירת קשר בנוגע להדגמה.</span>
+        </div>
+      </form>
+      <div class="thanks" role="status">
+        <b>תודה, הפרטים התקבלו</b>
+        <p>נחזור אליכם במייל או בטלפון לתיאום מועד להדגמה.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Prilabo, פורטל הזמנות סגור למותגי פרייבט לייבל</span>
+    <button type="button" class="footer-a11y" id="footer-a11y">הצהרת נגישות</button>
+    <span>Liran Dahan, AI Solutions Architect</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var items = document.querySelectorAll(".rv");
+    if ("IntersectionObserver" in window && !reduce) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+      items.forEach(function (el) { io.observe(el); });
+    } else {
+      items.forEach(function (el) { el.classList.add("in"); });
+    }
+
+    var counters = document.querySelectorAll("[data-count]");
+    function animateCount(el) {
+      var target = parseInt(el.getAttribute("data-count"), 10);
+      if (reduce || target === 0 || document.documentElement.classList.contains("a11y-still")) { el.textContent = target; return; }
+      var start = null, from = 60;
+      function step(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / 1400, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(from + (target - from) * eased);
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    if ("IntersectionObserver" in window) {
+      var io2 = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { animateCount(e.target); io2.unobserve(e.target); } });
+      }, { threshold: 0.6 });
+      counters.forEach(function (el) { io2.observe(el); });
+    } else {
+      counters.forEach(animateCount);
+    }
+
+    var form = document.getElementById("demo-form");
+    var box = document.getElementById("demo-box");
+    var err = document.getElementById("err");
+    var WEBHOOK_URL = "https://hook.eu1.make.com/bcv4mre1qyyxha6d44ed8g2rwnqok9ae";
+    var submitBtn = form.querySelector('button[type="submit"]');
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = form.elements.name, email = form.elements.email, phone = form.elements.phone;
+      if (!name.value.trim()) { err.textContent = "נא להזין שם."; name.focus(); return; }
+      if (!email.validity.valid) { err.textContent = "כתובת המייל שהוזנה אינה תקינה."; email.focus(); return; }
+      var digits = phone.value.replace(/[\s-]/g, "");
+      if (!digits) { err.textContent = "נא להזין טלפון."; phone.focus(); return; }
+      if (!/^(0|\+?972)\d{8,9}$/.test(digits)) { err.textContent = "מספר הטלפון שהוזן אינו תקין."; phone.focus(); return; }
+      err.textContent = "";
+      if (submitBtn.disabled) return;
+      submitBtn.disabled = true;
+      var body = new URLSearchParams();
+      body.append("name", name.value);
+      body.append("email", email.value);
+      body.append("phone", phone.value);
+      fetch(WEBHOOK_URL, { method: "POST", body: body })
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          box.classList.add("done");
+        })
+        .catch(function () {
+          err.textContent = "השליחה נכשלה. נסו שוב בעוד רגע.";
+        })
+        .then(function () { submitBtn.disabled = false; });
+    });
+  })();
+</script>
+
+<button class="a11y-fab" type="button" id="a11y-fab" aria-label="תפריט נגישות" aria-expanded="false" aria-controls="a11y-panel">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="4" r="1.8"/><path d="M5 8.5l7 1.5 7-1.5"/><path d="M12 10v5"/><path d="M8.5 21l3.5-6 3.5 6"/></svg>
+</button>
+<div class="a11y-panel" id="a11y-panel" role="dialog" aria-modal="false" aria-labelledby="a11y-title" hidden>
+  <div class="a11y-view" id="a11y-view-tools">
+    <div class="a11y-head">
+      <h2 id="a11y-title" tabindex="-1">התאמות נגישות</h2>
+      <button class="a11y-close" type="button" aria-label="סגירת תפריט הנגישות">סגירה</button>
+    </div>
+    <p class="a11y-hint">לחצו על כלי כדי להפעיל או לכבות אותו. ההגדרות לא נשמרות ויתאפסו בטעינה מחדש של הדף.</p>
+    <ul class="a11y-tools">
+      <li><button type="button" aria-pressed="false" data-a11y="a11y-big">הגדלת טקסט<span class="st" aria-hidden="true">פעיל</span></button></li>
+      <li><button type="button" aria-pressed="false" data-a11y="a11y-contrast">ניגודיות גבוהה<span class="st" aria-hidden="true">פעיל</span></button></li>
+      <li><button type="button" aria-pressed="false" data-a11y="a11y-still">עצירת אנימציות<span class="st" aria-hidden="true">פעיל</span></button></li>
+      <li><button type="button" aria-pressed="false" data-a11y="a11y-links">הדגשת קישורים<span class="st" aria-hidden="true">פעיל</span></button></li>
+      <li><button type="button" aria-pressed="false" data-a11y="a11y-font">גופן קריא<span class="st" aria-hidden="true">פעיל</span></button></li>
+      <li><button type="button" class="a11y-reset" id="a11y-reset">איפוס כל ההתאמות</button></li>
+    </ul>
+    <button type="button" class="a11y-linkbtn a11y-to-statement" id="a11y-to-statement">הצהרת נגישות</button>
+  </div>
+  <div class="a11y-view a11y-statement" id="a11y-view-statement" hidden>
+    <div class="a11y-head">
+      <h2 id="a11y-statement-title" tabindex="-1">הצהרת נגישות</h2>
+      <button class="a11y-close" type="button" aria-label="סגירת תפריט הנגישות">סגירה</button>
+    </div>
+    <button type="button" class="a11y-linkbtn a11y-back" id="a11y-back">חזרה להתאמות נגישות</button>
+    <h3>מה הונגש</h3>
+    <p>הדף הונגש בהתאם להנחיות WCAG ברמה AA, בשש בדיקות מרכזיות, ונבדק בדפדפן ובניווט מקלדת. מה שתוקן ונבדק בפועל:</p>
+    <ul>
+      <li>ניגודיות: צבע הסטטוס "ממתין" וצבע הטקסט המנחה בשדות הטופס הוכהו או הובהרו כך שיעמדו ביחס ניגודיות של <span dir="ltr">4.5:1</span> לפחות.</li>
+      <li>תצוגה בהגדלה ובמסך צר: הכותרת הראשית נשברת לשורות במסך צר. ברוחב <span dir="ltr">320</span> פיקסלים אין טקסט חתוך, גם כשהגדלת הטקסט פעילה.</li>
+      <li>הדמיות המסכים מוצגות לקוראי מסך כתמונה עם תיאור.</li>
+      <li>תפריט נגישות בפינה השמאלית התחתונה: הגדלת טקסט, ניגודיות גבוהה, עצירת אנימציות, הדגשת קישורים, גופן קריא ואיפוס. התפריט נפתח ונסגר במקלדת, ומקש Esc סוגר אותו.</li>
+      <li>נבדקו ונמצאו תקינים: תוויות לשדות הטופס, ניווט במקלדת ומבנה הכותרות.</li>
+    </ul>
+    <h3>מה עדיין לא נגיש</h3>
+    <ul>
+      <li>כפתור הצ'אט (Botpress) מקבל מיקוד במקלדת, אבל בלי סימון גלוי של המיקוד.</li>
+    </ul>
+    <h3>אחראי נגישות</h3>
+    <p>נתקלתם בבעיית נגישות? פנו אל <span dir="ltr">Liran Dahan</span> במייל <a href="mailto:lirandahan7703@gmail.com" dir="ltr">lirandahan7703@gmail.com</a>.</p>
+    <p class="note">ההצהרה עודכנה בתאריך <span dir="ltr">25.10.2026</span>.</p>
+  </div>
+</div>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var fab = document.getElementById("a11y-fab");
+    var panel = document.getElementById("a11y-panel");
+    var tools = panel.querySelectorAll("[data-a11y]");
+    var viewTools = document.getElementById("a11y-view-tools");
+    var viewStatement = document.getElementById("a11y-view-statement");
+    var opener = fab; // element that opened the panel; focus returns here on close
+
+    function showView(name) {
+      var statement = name === "statement";
+      viewTools.hidden = statement;
+      viewStatement.hidden = !statement;
+      panel.setAttribute("aria-labelledby", statement ? "a11y-statement-title" : "a11y-title");
+      panel.scrollTop = 0;
+    }
+    function openPanel(view, from) {
+      opener = from;
+      showView(view);
+      panel.hidden = false;
+      fab.setAttribute("aria-expanded", "true");
+      if (view === "statement") document.getElementById("a11y-statement-title").focus();
+      else tools[0].focus();
+    }
+    function closePanel(focusTarget) {
+      panel.hidden = true;
+      fab.setAttribute("aria-expanded", "false");
+      focusTarget.focus();
+    }
+    fab.addEventListener("click", function () {
+      if (panel.hidden) openPanel("tools", fab); else closePanel(fab);
+    });
+    panel.querySelectorAll(".a11y-close").forEach(function (btn) {
+      btn.addEventListener("click", function () { closePanel(opener); });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !panel.hidden) { e.preventDefault(); closePanel(opener); }
+    });
+    document.getElementById("a11y-to-statement").addEventListener("click", function () {
+      showView("statement"); document.getElementById("a11y-statement-title").focus();
+    });
+    var footerBtn = document.getElementById("footer-a11y");
+    footerBtn.addEventListener("click", function () { openPanel("statement", footerBtn); });
+    document.getElementById("a11y-back").addEventListener("click", function () {
+      showView("tools"); document.getElementById("a11y-title").focus();
+    });
+
+    tools.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var cls = btn.getAttribute("data-a11y");
+        var on = root.classList.toggle(cls);
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+        if (cls === "a11y-still" && on) {
+          document.querySelectorAll(".rv").forEach(function (el) { el.classList.add("in"); });
+          document.querySelectorAll("[data-count]").forEach(function (el) { el.textContent = el.getAttribute("data-count"); });
+        }
+      });
+    });
+
+    document.getElementById("a11y-reset").addEventListener("click", function () {
+      tools.forEach(function (btn) {
+        root.classList.remove(btn.getAttribute("data-a11y"));
+        btn.setAttribute("aria-pressed", "false");
+      });
+    });
+  })();
+</script>
+
+<script src="https://cdn.botpress.cloud/webchat/v5.0/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/10/21/17/20261021171532-TE1L9U6C.js" defer></script>
+</body>
+</html>
